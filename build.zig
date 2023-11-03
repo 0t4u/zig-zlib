@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     // Declare module to expose to package manager to make it available to downstream
-    b.addModule("zlib", .{ .source_file = .{ .path = package_path } });
+    _ = b.addModule("zlib", .{ .source_file = .{ .path = package_path } });
 
     const lib = b.addStaticLibrary(.{
         .name = "zlib",
