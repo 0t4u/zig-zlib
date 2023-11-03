@@ -32,6 +32,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     lib.linkLibC();
+    lib.addIncludePath(.{ .path = include_path });
     lib.addCSourceFiles(srcs, &.{"-std=c89"});
 
     // This declares intent for the library to be installed into the standard
