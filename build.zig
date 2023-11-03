@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     // Declare module to expose to package manager to make it available to downstream
-    _ = b.addModule("zlib", .{ .source_file = .{ .path = package_path } });
+    const mod = b.addModule("zlib", .{ .source_file = .{ .path = package_path } });
 
     const lib = b.addStaticLibrary(.{
         .name = "zlib",
@@ -66,7 +66,8 @@ pub fn build(b: *std.Build) void {
     });
     bin.addIncludePath(.{ .path = include_path });
     bin.linkLibrary(lib);
-    bin.addAnonymousModule("zlib", .{ .source_file = .{ .path = package_path } });
+    bin.addModule("zlib", mod);
+    b.installArtifact(bin);
 }
 
 fn root() []const u8 {
