@@ -34,6 +34,7 @@ pub fn build(b: *std.Build) void {
     lib.linkLibC();
     lib.addIncludePath(.{ .path = include_path });
     lib.addCSourceFiles(srcs, &.{"-std=c89"});
+    lib.installHeadersDirectory(include_path, "zlib");
 
     // This declares intent for the library to be installed into the standard
     // location when the user invokes the "install" step (the default step when
